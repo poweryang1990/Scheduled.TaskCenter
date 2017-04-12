@@ -30,8 +30,7 @@ namespace Scheduled.TaskCenter.Server
                     conf.Port = 5672;
                     conf.Username = "uoko";
                     conf.Password = "uoko123";
-                }
-                );
+                },"uoko_recurrent_task");
             GlobalConfiguration.Configuration.UseStorage(storage);
             //JobStorage.Current = storage;
             _server = new BackgroundJobServer(options);

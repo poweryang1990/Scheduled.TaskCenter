@@ -23,8 +23,7 @@ namespace Scheduled.TaskCenter.Dashboard
                     conf.Port = 5672;
                     conf.Username = "uoko";
                     conf.Password = "uoko123";
-                }
-                );
+                }, "uoko_recurrent_task");
             GlobalConfiguration.Configuration.UseStorage(storage);
             app.UseHangfireDashboard("/jobs");
         }
