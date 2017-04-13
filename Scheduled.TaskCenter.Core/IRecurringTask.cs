@@ -1,4 +1,6 @@
-﻿namespace Scheduled.TaskCenter.Core
+﻿using Hangfire;
+
+namespace Scheduled.TaskCenter.Core
 {
     /// <summary>
     /// 周期性任务契约
@@ -13,7 +15,8 @@
         /// 唯一的JobId
         /// </summary>
         string JobId { get;  }
-
+        [AutomaticRetry(Attempts = 0)]
+        [Queue("uoko_recurrent_task")]
         void Excute();
     }
 }

@@ -14,7 +14,6 @@ namespace Scheduled.TaskCenter.Server.RecurrentTask
        
         public string JobId => "uoko-job1";
         public string CronExpression => "* * * * *";
-        [Queue("uoko_recurrent_task")]
         public void Excute()
         {
             Console.WriteLine("uoko-job1");
