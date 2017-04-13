@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Hangfire;
 using Hangfire.Common;
+using Hangfire.Console;
 using Hangfire.Logging;
 using Hangfire.SqlServer;
 using Hangfire.SqlServer.RabbitMQ;
@@ -25,12 +26,14 @@ namespace Scheduled.TaskCenter.Core
                     conf.Username = "uoko";
                     conf.Password = "uoko123";
                 }, "uoko_recurrent_task");
-            GlobalConfiguration.Configuration.UseStorage(storage);
+            GlobalConfiguration.Configuration.UseStorage(storage).UseConsole();
         }
 
         public static void AddFilters()
         {
             GlobalConfiguration.Configuration.UseFilter(new HandleFailureAttribute());
         }
+ 
+       
     }
 }

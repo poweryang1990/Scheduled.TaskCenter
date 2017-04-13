@@ -1,8 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-using Hangfire;
-using Hangfire.SqlServer;
-using Hangfire.SqlServer.RabbitMQ;
+﻿using Hangfire;
 using Microsoft.Owin;
 using Owin;
 using Scheduled.TaskCenter.Core;
