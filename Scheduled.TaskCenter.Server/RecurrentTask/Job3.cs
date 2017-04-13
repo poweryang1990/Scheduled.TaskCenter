@@ -9,15 +9,16 @@ using Scheduled.TaskCenter.Core;
 
 namespace Scheduled.TaskCenter.Server.RecurrentTask
 {
-    public class Job2 : IRecurringTask
+    public class Job3 : IRecurringTask
     {
 
-        public string JobId => "uoko-job2";
+        public string JobId => "uoko-job3";
         public string CronExpression => "* * * * *";
         [Queue("uoko_recurrent_task")]
         public void Excute()
         {
-            Console.WriteLine("uoko-job2");
+            Console.WriteLine("uoko-job3");
+            throw new Exception("AAAAAAAAAAAA");
         }
     }
 }

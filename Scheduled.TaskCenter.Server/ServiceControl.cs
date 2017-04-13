@@ -19,20 +19,10 @@ namespace Scheduled.TaskCenter.Server
             var options = new BackgroundJobServerOptions
             {
                 ServerName = $"{Environment.MachineName}.{Guid.NewGuid()}",
-                Queues=new [] {"uoko_recurrent_task" }
+                Queues=new [] {"uoko_recurrent_task"}
             };
-            //使用SQLServer作为 数据库存储 RabbitMQ作为 消息队列
-            //使用SQLServer作为 数据库存储 RabbitMQ作为 消息队列
-            var storage = new SqlServerStorage("TaskCenterDB").UseRabbitMq(
-                conf =>
-                {
-                    conf.HostName = "localhost";
-                    conf.Port = 5672;
-                    conf.Username = "uoko";
-                    conf.Password = "uoko123";
-                },"uoko_recurrent_task");
-            GlobalConfiguration.Configuration.UseStorage(storage);
-            //JobStorage.Current = storage;
+            GlobalConfig.InitBasicConfig();
+            GlobalConfig.AddFilters();
             _server = new BackgroundJobServer(options);
 
             LoadRecurringTasks();
@@ -40,14 +30,13 @@ namespace Scheduled.TaskCenter.Server
 
         private void LoadRecurringTasks()
         {
-            var types =
-                from type in typeof(ServiceControl).Assembly.GetTypes()
-                where type.Namespace == "Scheduled.TaskCenter.Server.RecurrentTask" && type.BaseType==typeof(RecurringTaskBase)
+            var types =from type in typeof(ServiceControl).Assembly.GetTypes()
+                where type.Namespace == "Scheduled.TaskCenter.Server.RecurrentTask" && type.GetInterfaces().Any(t => t== typeof(IRecurringTask)) 
                 select type;
             foreach (var type in types)
             {
-                var task = (RecurringTaskBase)Activator.CreateInstance(type);
-                task.AddTask();
+                var task = (IRecurringTask)Activator.CreateInstance(type);
+                RecurringJob.AddOrUpdate(task.JobId, ()=> task.Excute(), task.CronExpression, queue: "uoko_recurrent_task");
             }
         }
         public void Stop()

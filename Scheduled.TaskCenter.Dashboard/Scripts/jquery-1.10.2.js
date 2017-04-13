@@ -4768,7 +4768,7 @@ jQuery.event = {
 			handler.guid = jQuery.guid++;
 		}
 
-		// Init the element's event structure and main handler, if this is the first
+		// InitBasicConfig the element's event structure and main handler, if this is the first
 		if ( !(events = elemData.events) ) {
 			events = elemData.events = {};
 		}
@@ -4818,7 +4818,7 @@ jQuery.event = {
 				namespace: namespaces.join(".")
 			}, handleObjIn );
 
-			// Init the event handler queue if we're the first
+			// InitBasicConfig the event handler queue if we're the first
 			if ( !(handlers = events[ type ]) ) {
 				handlers = events[ type ] = [];
 				handlers.delegateCount = 0;

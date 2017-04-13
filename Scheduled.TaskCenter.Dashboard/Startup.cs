@@ -5,6 +5,7 @@ using Hangfire.SqlServer;
 using Hangfire.SqlServer.RabbitMQ;
 using Microsoft.Owin;
 using Owin;
+using Scheduled.TaskCenter.Core;
 
 [assembly: OwinStartup(typeof(Scheduled.TaskCenter.Dashboard.Startup))]
 
@@ -14,17 +15,7 @@ namespace Scheduled.TaskCenter.Dashboard
     {
         public void Configuration(IAppBuilder app)
         {
-            //使用SQLServer作为 数据库存储 RabbitMQ作为 消息队列
-            //使用SQLServer作为 数据库存储 RabbitMQ作为 消息队列
-            var storage = new SqlServerStorage("TaskCenterDB").UseRabbitMq(
-                conf =>
-                {
-                    conf.HostName = "localhost";
-                    conf.Port = 5672;
-                    conf.Username = "uoko";
-                    conf.Password = "uoko123";
-                }, "uoko_recurrent_task");
-            GlobalConfiguration.Configuration.UseStorage(storage);
+            GlobalConfig.InitBasicConfig();
             app.UseHangfireDashboard("/jobs");
         }
     }

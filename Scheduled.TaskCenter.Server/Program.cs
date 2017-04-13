@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using log4net.Config;
 using Topshelf;
 
 namespace Scheduled.TaskCenter.Server
@@ -6,7 +8,8 @@ namespace Scheduled.TaskCenter.Server
     class Program
     {
         static void Main(string[] args)
-        {  
+        {
+            XmlConfigurator.ConfigureAndWatch(new FileInfo($"{Environment.CurrentDirectory}/log4net.config"));
             HostFactory.Run(x =>
             {
                 x.RunAsLocalSystem();

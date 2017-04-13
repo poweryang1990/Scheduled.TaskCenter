@@ -4,27 +4,20 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using Hangfire;
 using Scheduled.TaskCenter.Core;
 
 namespace Scheduled.TaskCenter.Server.RecurrentTask
 {
-    public class Job1 : RecurringTaskBase
+    public class Job1 : IRecurringTask
     {
        
-
-        public override string GetRecurringJobId()
+        public string JobId => "uoko-job1";
+        public string CronExpression => "* * * * *";
+        [Queue("uoko_recurrent_task")]
+        public void Excute()
         {
-            return "uoko-job1";
-        }
-
-        public override string GetCronExpression()
-        {
-            return "* * * * *";
-        }
-
-        public override Expression<Action> GetAction()
-        {
-            return () => Console.WriteLine("uoko-job1");
+            Console.WriteLine("uoko-job1");
         }
     }
 }
