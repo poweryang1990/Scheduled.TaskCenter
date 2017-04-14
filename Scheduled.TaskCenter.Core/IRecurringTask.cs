@@ -1,4 +1,5 @@
 ﻿using Hangfire;
+using Hangfire.Server;
 
 namespace Scheduled.TaskCenter.Core
 {
@@ -17,6 +18,6 @@ namespace Scheduled.TaskCenter.Core
         string JobId { get;  }
         [AutomaticRetry(Attempts = 0)]
         [Queue("uoko_recurrent_task")]
-        void Excute();
+        void Excute(PerformContext context);
     }
 }

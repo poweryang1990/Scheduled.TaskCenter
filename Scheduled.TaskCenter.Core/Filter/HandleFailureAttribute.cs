@@ -14,6 +14,10 @@ namespace Scheduled.TaskCenter.Core.Filter
         public void OnStateApplied(ApplyStateContext context, IWriteOnlyTransaction transaction)
         {
             var failedState = context.NewState as FailedState;
+            if (context.NewState.Name == "Failed")
+            {
+                var dd = context.NewState;
+            }
             if (failedState != null)
             {
                 //记录日志到Fatal 级别  配置 Fatal 级别的日志 邮件

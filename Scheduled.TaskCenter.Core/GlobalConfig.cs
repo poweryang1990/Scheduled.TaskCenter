@@ -7,6 +7,7 @@ using Hangfire;
 using Hangfire.Common;
 using Hangfire.Console;
 using Hangfire.Logging;
+using Hangfire.RecurringJobExtensions;
 using Hangfire.SqlServer;
 using Hangfire.SqlServer.RabbitMQ;
 using Scheduled.TaskCenter.Core.Filter;
@@ -33,7 +34,10 @@ namespace Scheduled.TaskCenter.Core
         {
             GlobalConfiguration.Configuration.UseFilter(new HandleFailureAttribute());
         }
- 
-       
+        public static void RecurringJob(Type type)
+        {
+            GlobalConfiguration.Configuration.UseRecurringJob(type);
+        }
+
     }
 }

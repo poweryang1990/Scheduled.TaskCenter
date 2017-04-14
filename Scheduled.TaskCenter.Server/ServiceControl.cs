@@ -8,6 +8,7 @@ using Hangfire;
 using Hangfire.SqlServer;
 using Hangfire.SqlServer.RabbitMQ;
 using Scheduled.TaskCenter.Core;
+using Scheduled.TaskCenter.Server.RecurrentTask;
 
 namespace Scheduled.TaskCenter.Server
 {
@@ -19,7 +20,7 @@ namespace Scheduled.TaskCenter.Server
             var options = new BackgroundJobServerOptions
             {
                 ServerName = $"{Environment.MachineName}.{Guid.NewGuid()}",
-                Queues=new [] {"uoko_recurrent_task"}
+                Queues=new [] {"uoko_recurrent_task", "jobs" }
             };
             GlobalConfig.InitBasicConfig();
             GlobalConfig.AddFilters();
@@ -36,8 +37,10 @@ namespace Scheduled.TaskCenter.Server
             foreach (var type in types)
             {
                 var task = (IRecurringTask)Activator.CreateInstance(type);
-                RecurringJob.AddOrUpdate(task.JobId, ()=> task.Excute(), task.CronExpression, queue: "uoko_recurrent_task");
+                RecurringJob.AddOrUpdate(task.JobId, ()=> task.Excute(null), task.CronExpression, queue: "uoko_recurrent_task");
             }
+
+            GlobalConfig.RecurringJob(typeof (RecurringJobService));
         }
         public void Stop()
         {
