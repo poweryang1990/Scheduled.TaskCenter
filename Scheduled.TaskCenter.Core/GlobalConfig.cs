@@ -26,7 +26,7 @@ namespace Scheduled.TaskCenter.Core
                     conf.Port = 5672;
                     conf.Username = "uoko";
                     conf.Password = "uoko123";
-                }, "uoko_recurrent_task");
+                }, "uoko_recurrent_task", "jobs");
             GlobalConfiguration.Configuration.UseStorage(storage).UseConsole();
         }
 

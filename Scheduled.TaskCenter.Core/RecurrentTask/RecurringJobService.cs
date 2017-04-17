@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Hangfire;
 using Hangfire.Console;
 using Hangfire.RecurringJobExtensions;
 using Hangfire.Server;
 
-namespace Scheduled.TaskCenter.Server.RecurrentTask
+namespace Scheduled.TaskCenter.Core.RecurrentTask
 {
     public class RecurringJobService
     {

@@ -12,7 +12,7 @@ namespace Scheduled.TaskCenter.Dashboard
         public void Configuration(IAppBuilder app)
         {
             GlobalConfig.InitBasicConfig();
-            app.UseHangfireDashboard("/jobs");
+            app.UseHangfireDashboard("");
         }
     }
 }

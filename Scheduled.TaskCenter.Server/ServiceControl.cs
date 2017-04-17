@@ -8,7 +8,7 @@ using Hangfire;
 using Hangfire.SqlServer;
 using Hangfire.SqlServer.RabbitMQ;
 using Scheduled.TaskCenter.Core;
-using Scheduled.TaskCenter.Server.RecurrentTask;
+using Scheduled.TaskCenter.Core.RecurrentTask;
 
 namespace Scheduled.TaskCenter.Server
 {
@@ -31,8 +31,8 @@ namespace Scheduled.TaskCenter.Server
 
         private void LoadRecurringTasks()
         {
-            var types =from type in typeof(ServiceControl).Assembly.GetTypes()
-                where type.Namespace == "Scheduled.TaskCenter.Server.RecurrentTask" && type.GetInterfaces().Any(t => t== typeof(IRecurringTask)) 
+            var types =from type in Assembly.Load("Scheduled.TaskCenter.Core").GetTypes()
+                       where type.GetInterfaces().Any(t => t== typeof(IRecurringTask)) 
                 select type;
             foreach (var type in types)
             {

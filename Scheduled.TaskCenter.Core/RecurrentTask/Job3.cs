@@ -1,9 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
 using Hangfire.Server;
-using Scheduled.TaskCenter.Core;
 
-namespace Scheduled.TaskCenter.Server.RecurrentTask
+namespace Scheduled.TaskCenter.Core.RecurrentTask
 {
     public class Job3 : IRecurringTask
     {
@@ -13,8 +12,15 @@ namespace Scheduled.TaskCenter.Server.RecurrentTask
         [DisplayName("任务3")]
         public void Excute(PerformContext context)
         {
-            Console.WriteLine("uoko-job3");
-            throw new Exception("AAAAAAAAAAAA");
+            try
+            {
+                Console.WriteLine("uoko-job3");
+                throw new Exception("AAAAAAAAAAAA");
+            }
+            catch (Exception ex)
+            {
+                context.ErrorWriteLine(ex.ToString());
+            }
         }
     }
 }
