@@ -20,13 +20,15 @@ namespace Scheduled.TaskCenter.Server
             var options = new BackgroundJobServerOptions
             {
                 ServerName = $"{Environment.MachineName}.{Guid.NewGuid()}",
-                Queues=new [] {"uoko_recurrent_task", "jobs" }
+                Queues=new [] {"uoko_recurrent_task", "jobs","default" }
             };
             GlobalConfig.InitBasicConfig();
             GlobalConfig.AddFilters();
             _server = new BackgroundJobServer(options);
 
             LoadRecurringTasks();
+            
+            BackgroundJob.Enqueue(() => JobDelay.Excute(null));
         }
 
         private void LoadRecurringTasks()

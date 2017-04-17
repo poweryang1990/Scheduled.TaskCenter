@@ -14,7 +14,7 @@ namespace Scheduled.TaskCenter.Core.RecurrentTask
         {
             try
             {
-                Console.WriteLine("uoko-job3");
+                Console.WriteLine($"uoko-job3  {DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}");
                 throw new Exception("AAAAAAAAAAAA");
             }
             catch (Exception ex)

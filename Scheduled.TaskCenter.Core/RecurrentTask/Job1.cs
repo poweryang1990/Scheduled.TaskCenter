@@ -14,7 +14,7 @@ namespace Scheduled.TaskCenter.Core.RecurrentTask
         public void Excute(PerformContext context)
         {
             context.WriteLine("开始执行任务1......");
-            Console.WriteLine("uoko-job1");
+            Console.WriteLine($"uoko-job1  {DateTime.Now.ToString("yyyy - MM - dd HH: mm:ss")}");
         }
     }
 }

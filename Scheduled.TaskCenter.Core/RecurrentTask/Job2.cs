@@ -14,7 +14,7 @@ namespace Scheduled.TaskCenter.Core.RecurrentTask
         public void Excute(PerformContext context)
         {
             context.WarningWriteLine("处理XXX账单 出现异常......");
-            Console.WriteLine("uoko-job2");
+            Console.WriteLine($"uoko-job2  {DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}");
         }
     }
 }
